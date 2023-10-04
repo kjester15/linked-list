@@ -1,3 +1,6 @@
+require 'pry-byebug'
+
+
 class LinkedList
   attr_accessor :head, :tail, :node_count
 
@@ -30,7 +33,21 @@ class LinkedList
   end
 
   def size
-    @node_count
+    current_node = @head
+    count = 0
+    if @head.nil?
+      return count
+    end
+
+    loop do
+      count += 1
+      if current_node.next_node.nil?
+        break
+      end
+
+      current_node = current_node.next_node
+    end
+    count
   end
 
   def head
@@ -43,13 +60,26 @@ class LinkedList
 
   def at(index)
     # return node at given index
-    index = 0
+    current_node = @head
+    count = 0
+    loop do
+      if count == index
+        return current_node.value
+      end
+
+      if current_node.next_node.nil?
+        break
+      end
+
+      current_node = current_node.next_node
+      count += 1
+    end
   end
 
   def pop
     # removes last element from list
     current_node = @head
-    until current_node.next_node == @tail
+    until current_node.next_node.nil?
       current_node = current_node.next_node
     end
     @tail = current_node
@@ -60,23 +90,33 @@ class LinkedList
   def contains?(value)
     # return true if the value is in the list, otherwise return false
     current_node = @head
-    until current_node.next_node.nil?
+    loop do
       if current_node.value == value
         return true
       end
+
+      if current_node.next_node.nil?
+        break
+      end
+
       current_node = current_node.next_node
     end
-    return false
+    false
   end
 
   def find(value)
     # return the index of the node containing value, or nil if not found
     current_node = @head
     index = 0
-    until current_node.next_node.nil?
+    loop do
       if current_node.value == value
         return index
       end
+
+      if current_node.next_node.nil?
+        break
+      end
+
       current_node = current_node.next_node
       index += 1
     end
@@ -121,11 +161,14 @@ new_list.append('this 3rd')
 new_list.prepend('then this')
 new_list.append('and this one last')
 new_list.prepend('this should be first')
-# p new_list.head
-# p new_list.tail
-puts new_list.size
 new_list.to_s(new_list, new_list.head)
 new_list.pop
 new_list.to_s(new_list, new_list.head)
-puts new_list.contains?('then this')
-puts new_list.find('then this')
+print 'contains: '
+puts new_list.contains?('and this one last')
+print 'find: '
+puts new_list.find('and this one last')
+print 'at: '
+puts new_list.at(3)
+print 'size: '
+puts new_list.size
