@@ -1,5 +1,5 @@
 class LinkedList
-  attr_accessor :head, :tail, :node_count
+  attr_accessor :head, :tail
 
   def initialize
     @head = nil
@@ -58,7 +58,7 @@ class LinkedList
     count = 0
     loop do
       if count == index
-        return current_node.value
+        return current_node
       end
 
       if current_node.next_node.nil?
@@ -78,7 +78,6 @@ class LinkedList
     end
     @tail = current_node
     current_node.next_node = nil
-    @node_count -= 1
   end
 
   def contains?(value)
@@ -127,12 +126,16 @@ class LinkedList
   end
 
   def insert_at(value, index)
-    # extra credit
     # inserts a new node with the provided value at the given index
+    new_node = Node.new
+    new_node.add_value(value)
+    node = self.at(index)
+    prior_node = self.at(index - 1)
+    prior_node.next_node = new_node
+    new_node.next_node = node
   end
 
   def remove_at(index)
-    # extra credit
     # remove the node at the given index
   end
 end
@@ -166,3 +169,5 @@ print 'at: '
 puts new_list.at(3)
 print 'size: '
 puts new_list.size
+puts new_list.insert_at('hello', 2)
+new_list.to_s(new_list, new_list.head)
