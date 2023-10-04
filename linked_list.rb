@@ -71,6 +71,16 @@ class LinkedList
 
   def find(value)
     # return the index of the node containing value, or nil if not found
+    current_node = @head
+    index = 0
+    until current_node.next_node.nil?
+      if current_node.value == value
+        return index
+      end
+      current_node = current_node.next_node
+      index += 1
+    end
+    return nil
   end
 
   def to_s(list, node)
@@ -118,3 +128,4 @@ new_list.to_s(new_list, new_list.head)
 new_list.pop
 new_list.to_s(new_list, new_list.head)
 puts new_list.contains?('then this')
+puts new_list.find('then this')
