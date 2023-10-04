@@ -47,7 +47,7 @@ class LinkedList
   end
 
   def pop
-    # remove last element from list
+    # removes last element from list
     current_node = @head
     until current_node.next_node == @tail
       current_node = current_node.next_node
@@ -59,6 +59,14 @@ class LinkedList
 
   def contains?(value)
     # return true if the value is in the list, otherwise return false
+    current_node = @head
+    until current_node.next_node.nil?
+      if current_node.value == value
+        return true
+      end
+      current_node = current_node.next_node
+    end
+    return false
   end
 
   def find(value)
@@ -71,7 +79,6 @@ class LinkedList
       puts 'nil'
       return
     end
-
     list.to_s(list, node.next_node)
   end
 
@@ -104,9 +111,10 @@ new_list.append('this 3rd')
 new_list.prepend('then this')
 new_list.append('and this one last')
 new_list.prepend('this should be first')
-p new_list.head
-p new_list.tail
+# p new_list.head
+# p new_list.tail
 puts new_list.size
 new_list.to_s(new_list, new_list.head)
 new_list.pop
 new_list.to_s(new_list, new_list.head)
+puts new_list.contains?('then this')
