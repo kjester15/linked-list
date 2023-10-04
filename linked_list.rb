@@ -1,13 +1,9 @@
-require 'pry-byebug'
-
-
 class LinkedList
   attr_accessor :head, :tail, :node_count
 
   def initialize
     @head = nil
     @tail = nil
-    @node_count = 0
   end
 
   def append(value)
@@ -18,7 +14,6 @@ class LinkedList
       @tail.next_node = new_node
     end
     @tail = new_node
-    @node_count += 1
   end
 
   def prepend(value)
@@ -29,7 +24,6 @@ class LinkedList
       new_node.next_node = @head
     end
     @head = new_node
-    @node_count += 1
   end
 
   def size
