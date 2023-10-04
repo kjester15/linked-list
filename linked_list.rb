@@ -1,18 +1,11 @@
 class LinkedList
-  attr_accessor :head, :tail
+  attr_accessor :head, :tail, :node_count
 
   def initialize
     @head = nil
     @tail = nil
     @node_count = 0
   end
-
-  # def check_head_tail
-  #   sum = 0
-  #   if @head.nil? then sum += 1 end
-  #   if @tail.nil? then sum += 2 end
-  #   sum
-  # end
 
   def append(value)
     new_node = Node.new
@@ -50,10 +43,17 @@ class LinkedList
 
   def at(index)
     # return node at given index
+    index = 0
   end
 
   def pop
     # remove last element from list
+    current_node = @head
+    until current_node.next_node == @tail
+      current_node = current_node.next_node
+    end
+    @tail = current_node
+    current_node.next_node = nil
     @node_count -= 1
   end
 
@@ -73,9 +73,6 @@ class LinkedList
     end
 
     list.to_s(list, node.next_node)
-
-    # represent linked list objects as strings so you can print them out and preview them in the console
-    # format should be ( value ) -> ( value ) -> ( value ) -> nil
   end
 
   def insert_at(value, index)
@@ -103,12 +100,13 @@ class Node
 end
 
 new_list = LinkedList.new
-new_list.append('last')
-new_list.prepend('first')
-new_list.append('replacement last')
-new_list.prepend('replacement first')
-# p new_list.head
-# p new_list.tail
+new_list.append('this 3rd')
+new_list.prepend('then this')
+new_list.append('and this one last')
+new_list.prepend('this should be first')
+p new_list.head
+p new_list.tail
 puts new_list.size
 new_list.to_s(new_list, new_list.head)
-# puts new_list.check_head_tail
+new_list.pop
+new_list.to_s(new_list, new_list.head)
