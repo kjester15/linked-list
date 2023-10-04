@@ -137,6 +137,9 @@ class LinkedList
 
   def remove_at(index)
     # remove the node at the given index
+    node = self.at(index)
+    prior_node = self.at(index - 1)
+    prior_node.next_node = node.next_node
   end
 end
 
@@ -169,5 +172,7 @@ print 'at: '
 puts new_list.at(3)
 print 'size: '
 puts new_list.size
-puts new_list.insert_at('hello', 2)
+new_list.insert_at('hello', 2)
+new_list.to_s(new_list, new_list.head)
+new_list.remove_at(3)
 new_list.to_s(new_list, new_list.head)
